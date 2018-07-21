@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>pixelmusic</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+
+<div ng-app="myShoppingList" ng-controller="myCtrl">
+  <input type="file" ngf-select="onFileSelect($files)" multiple>
+</div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="view1/view1.js"></script>
+  <script src="view2/view2.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+  <script>
+  var app = angular.module("myApp", ['ngFileUpload']);
+  app.controller("myCtrl", function($scope, Upload) {
+
+    $scope.onFileSelect = function($files) {
+     Upload.upload({
+       url: 'http://127.0.0.1:7000/pixelmusic/',
+       file: $files,
+     }).progress(function(e) {
+     }).then(function(data, status, headers, config) {
+       // file is uploaded successfully
+       console.log(data);
+     });
+   }
+
+  });
+</script>
+</body>
+</html>
