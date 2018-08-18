@@ -10,16 +10,44 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript">
+  var mp1, mp2;
+
+  function init() {
+      // Example 1. This will loop 5 times, and has a callback function at the end.
+      var callback = function() { document.getElementById('btn1').value = 'play'; }
+      mp1 = new MidiPlayer('Saved.mid', 'btn1', true, 5, callback);
+      mp1.setDebugDiv('msg');
+
+      // Example 2. This will not loop.
+      mp2 = new MidiPlayer('Bach_Badinerie.mid', 'btn2');
+  }
+
+  function doPlay(m, btn) {
+      if (btn.value == 'play') {
+          m.play();
+          btn.value = 'stop';
+      }
+      else {
+          m.stop();
+          btn.value = 'play';
+      }
+  }
+  </script>
 </head>
+<body onload="javascript:init();">
 <body>
 
 
 <div ng-app="myShoppingList" ng-controller="myCtrl">
   <input type="file" ngf-select="onFileSelect($files)" multiple>
 </div>
+<input type="button" value="play" id="btn1" onclick="doPlay(mp1, this); show_clear();"/>
+<input type="button" value="play" id='btn2' onclick="doPlay(mp2, this);"/><br/><br/>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/midi.min.js"></script>
   <script src="app.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
